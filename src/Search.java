@@ -91,11 +91,12 @@ public class Search {
                 System.out.println("h(state) = " + currHeuristic + ", g(state) = " + currCost.getValue() + ", f(state) = " + currCost.getKey());
             }
             if (Search.goalTest(currBoard)) {
+                getPathToGoal(currBoard);
                 if (printFlag) {
                     System.out.println("\nfound solution in " + step + " steps");
                     System.out.println("total cost = " + currCost.getValue());
-                    System.out.println("nodes expanded = " + found.size());
                 }
+                System.out.println("nodes expanded = " + found.size());
                 return true;
             }
             visited.add(currBoard);
