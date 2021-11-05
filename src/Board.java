@@ -55,4 +55,39 @@ public class Board {
         }
         return new Board(newState);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        // null check
+        if (obj == null) {
+            return false;
+        }
+
+        // this instance check
+        if (this == obj) {
+            return true;
+        }
+
+        // Actual value check
+        int[][] objState = ((Board)obj).getCurrentState();
+        for(int i = 0; i< currentState.length; i++){
+            for(int j = 0; j< currentState[0].length; j++) {
+                if(currentState[i][j]!=objState[i][j])
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int[] ints : currentState) {
+            for (int j = 0; j < currentState[0].length; j++) {
+                stringBuilder.append(ints[j]);
+            }
+        }
+        // I am not sure of this. I will test it later.
+        return stringBuilder.hashCode();
+    }
 }
