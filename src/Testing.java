@@ -8,8 +8,8 @@ public class Testing {
         Board board3 = new Board(arr3);
         //Testing
         long start = System.currentTimeMillis();
-//        System.out.println(new Search().depthFirstSearch(board1));
-        System.out.println(new Search().BFS(board1));
+//        System.out.println(new Search().depthFirstSearch(board3));
+        System.out.println(new Search().BFS(board3));
         long end = System.currentTimeMillis();
         long elapsedTime = end - start;
         System.out.println("Elapsed Time: "+ elapsedTime + " ms");

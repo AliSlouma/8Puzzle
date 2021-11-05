@@ -38,6 +38,7 @@ public class Search {
         }
         System.out.println("__________________________________");
         System.out.println("Search Depth = " + boards.size());
+        System.out.println("cost of path = " + boards.size());
         while (!boards.isEmpty()){
             boards.pop().drawBoard();
         }
