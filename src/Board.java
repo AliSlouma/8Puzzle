@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.List;
 
 public class Board {
-    private int[][] currentState = new int[3][3];
+    private final int[][] currentState;
     private int[] zeroIndecis = new int[]{0,0};
     private static Map<Integer, Point> idealStates ;
     public static Map<Integer, Point> getIdealStates (int dim){
@@ -99,7 +99,13 @@ public class Board {
                 stringBuilder.append(ints[j]);
             }
         }
-        // I am not sure of this. I will test it later.
         return Integer.parseInt(stringBuilder.toString());
     }
+    public void drawBoard(){
+        System.out.println("_____________");
+        for (int[] ints: currentState)
+            System.out.println("| "+ints[0]+" | "+ints[1]+" | "+ints[2]+" |");
+        System.out.println("_____________");
+    }
+
 }
