@@ -1,18 +1,28 @@
 public class Testing {
     public static void main(String[] args) {
-        int[][] arr1 = {{1,2,3},{4,0,5},{6,7,8}};
-//        int[][] arr3 = {{1,0,2},{3,4,5},{6,7,8}};
-        int[][] arr3 = {{1,2,5},{3,4,0},{7,6,8}};
-        Board board1 = new Board(arr1);
-//        Board board2 = new Board(arr2);
-        Board board3 = new Board(arr3);
-        //Testing
-        long start = System.currentTimeMillis();
-//        System.out.println(new Search().depthFirstSearch(board3));
-        System.out.println(new Search().BFS(board3));
-        long end = System.currentTimeMillis();
-        long elapsedTime = end - start;
-        System.out.println("Elapsed Time: "+ elapsedTime + " ms");
+        // Creating a board
+        int[][] arr = {{1,2,5},{3,4,0},{6,7,8}};
+        Board board = new Board(arr);
+        /*Testing*/
+        //BFS
+        long startBFS = System.currentTimeMillis();
+        System.out.println(new Search().BFS(board));
+        long endBFS = System.currentTimeMillis();
+        long elapsedTimeBFS = endBFS - startBFS;
+        System.out.println("Elapsed Time: "+ elapsedTimeBFS + " ms");
+        //DFS
+        long startDFS = System.currentTimeMillis();
+        System.out.println(new Search().depthFirstSearch(board));
+        long endDFS = System.currentTimeMillis();
+        long elapsedTimeDFS = endDFS - startDFS;
+        System.out.println("Elapsed Time: "+ elapsedTimeDFS + " ms");
+        //A* Search
+        long startAstar = System.currentTimeMillis();
+        Search search = new Search();
+        System.out.println(search.BFS(board));
+        search.AStarSearch(board,new EuclideanDistanceHeuristic(),true);
+        long endAstar = System.currentTimeMillis();
+        long elapsedTimeAstar = endAstar - startAstar;
+        System.out.println("Elapsed Time: "+ elapsedTimeAstar + " ms");
     }
-
 }

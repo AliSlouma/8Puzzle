@@ -37,11 +37,12 @@ public class Search {
             state = state.getParent();
         }
         System.out.println("__________________________________");
-        System.out.println("Search Depth = " + boards.size());
-        System.out.println("cost of path = " + boards.size());
+        int boardsSize = boards.size();
         while (!boards.isEmpty()){
             boards.pop().drawBoard();
         }
+        System.out.println("Search Depth = " + boardsSize);
+        System.out.println("cost of path = " + (boardsSize-1));
     }
 
     public boolean depthFirstSearch(Board initialState){
