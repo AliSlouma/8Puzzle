@@ -18,7 +18,7 @@ public class Main {
         Board board = new Board(arr);
 
         Search search = new Search();
-        System.out.println(search.BFS(board));
-        new AStarSearch()
+        //System.out.println(search.BFS(board));
+        new AStarSearch().search(board);
     }
 }
