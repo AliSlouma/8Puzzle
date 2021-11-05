@@ -87,7 +87,13 @@ public class Board {
                 stringBuilder.append(ints[j]);
             }
         }
-        // I am not sure of this. I will test it later.
         return Integer.parseInt(stringBuilder.toString());
     }
+    public void drawBoard(){
+        System.out.println("_____________");
+        for (int[] ints: currentState)
+            System.out.println("| "+ints[0]+" | "+ints[1]+" | "+ints[2]+" |");
+        System.out.println("_____________");
+    }
+
 }
