@@ -6,5 +6,6 @@ public class Main {
         stringBuilder1.append("12345679");
         System.out.println(stringBuilder.hashCode());
         System.out.println(stringBuilder1.hashCode());
+        new ManhattanDistanceHeuristic().calculateHeuristic(new int[3][3]);
     }
 }
