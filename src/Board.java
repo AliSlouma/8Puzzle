@@ -88,6 +88,6 @@ public class Board {
             }
         }
         // I am not sure of this. I will test it later.
-        return stringBuilder.hashCode();
+        return Integer.parseInt(stringBuilder.toString());
     }
 }
