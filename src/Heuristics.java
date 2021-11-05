@@ -1,3 +1,3 @@
 public interface Heuristics {
-    public Double[][] calculateHeuristic (int [][] obj1);
+    public double calculateHeuristic (int [][] obj1);
 }
