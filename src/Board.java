@@ -6,6 +6,7 @@ public class Board {
     private final int[][] currentState;
     private int[] zeroIndecis = new int[]{0,0};
     private static Map<Integer, Point> idealStates ;
+    private Board parent = null;
 
     public static Map<Integer, Point> getIdealStates (int dim){
         if(idealStates==null){
@@ -34,6 +35,14 @@ public class Board {
 
     public int[] getZeroPoint() {
         return zeroIndecis;
+    }
+
+    public Board getParent() {
+        return parent;
+    }
+
+    public void setParent(Board parent) {
+        this.parent = parent;
     }
 
     public List<Board> getNeighbours() {
@@ -70,7 +79,9 @@ public class Board {
                     newState[i][j] = currentState[i][j];
             }
         }
-        return new Board(newState);
+        Board newBoard = new Board(newState);
+        newBoard.setParent(this);
+        return newBoard;
     }
 
     @Override

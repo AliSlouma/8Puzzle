@@ -14,6 +14,7 @@ public class Search {
             state.drawBoard();
             explored.add(state);
             if(goalTest(state)){
+                getPathToGoal(state);
                 System.out.println("nodes expanded = " + explored.size());
                 return true;
             }
@@ -28,6 +29,20 @@ public class Search {
         System.out.println("nodes expanded = " + explored.size());
         return false;
     }
+
+    private void getPathToGoal(Board state) {
+        Stack<Board> boards = new Stack<>();
+        while (state!=null){
+            boards.push(state);
+            state = state.getParent();
+        }
+        System.out.println("__________________________________");
+        System.out.println("Search Depth = " + boards.size());
+        while (!boards.isEmpty()){
+            boards.pop().drawBoard();
+        }
+    }
+
     public boolean depthFirstSearch(Board initialState){
         Stack<Board> frontier = new Stack<>();
         Set<Board> explored = new HashSet<>();
@@ -39,6 +54,7 @@ public class Search {
             state.drawBoard();
 
             if(goalTest(state)){
+                getPathToGoal(state);
                 System.out.println("nodes expanded = " + explored.size());
                 return true;
             }
