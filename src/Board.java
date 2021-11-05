@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-    private int[][] currentState = new int[3][3];
+    private final int[][] currentState;
     private int[] zeroIndecis = new int[]{0,0};
 
     public Board(int[][] currentState) {
