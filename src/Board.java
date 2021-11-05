@@ -6,6 +6,7 @@ public class Board {
     private final int[][] currentState;
     private int[] zeroIndecis = new int[]{0,0};
     private static Map<Integer, Point> idealStates ;
+
     public static Map<Integer, Point> getIdealStates (int dim){
         if(idealStates==null){
             int i=0 ;
@@ -51,6 +52,9 @@ public class Board {
             int tempValue = currentState[zeroX][zeroY+1];
             neighbours.add(generateNewState(tempValue, zeroX, zeroY+1));
         }
+        for(Board neighbour: neighbours){
+            neighbour.drawBoard();
+        }
         return neighbours;
     }
     private Board generateNewState(int tempValue, int xIdx, int yIdx){
@@ -58,9 +62,9 @@ public class Board {
         for(int i = 0; i< currentState.length; i++){
             for(int j = 0; j< currentState[0].length; j++){
                 if(currentState[i][j]==0)
-                    newState[i][j] = 0;
-                else if(i==xIdx && j==yIdx)
                     newState[i][j] = tempValue;
+                else if(i==xIdx && j==yIdx)
+                    newState[i][j] = 0;
                 else
                     newState[i][j] = currentState[i][j];
             }

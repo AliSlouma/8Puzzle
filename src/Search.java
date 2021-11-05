@@ -12,6 +12,7 @@ public class Search {
         frontier.push(initialState);
         while (!frontier.isEmpty()){
             Board state = frontier.pop();
+            state.drawBoard();
             explored.add(state);
 
             if(goalTest(state)){
@@ -19,11 +20,10 @@ public class Search {
             }
 
             for(Board neighbour: state.getNeighbours()) {
-                // I know I have to make it compare between the values inside the objects,
-                // not the objects references.
                 if(!frontier.contains(neighbour)||!explored.contains(neighbour))
                     frontier.push(neighbour);
             }
+            return false;
         }
         return false;
     }
