@@ -1,10 +1,22 @@
-import java.util.ArrayList;
+import java.awt.*;
+import java.util.*;
 import java.util.List;
 
 public class Board {
     private final int[][] currentState;
     private int[] zeroIndecis = new int[]{0,0};
-
+    private static Map<Integer, Point> idealStates ;
+    public static Map<Integer, Point> getIdealStates (int dim){
+        if(idealStates==null){
+            int i=0 ;
+            idealStates = new HashMap<>();
+            //change this to parameter
+            for(;i<dim*dim;i++){
+               idealStates.put(i,new Point(i/dim,i%dim));
+            }
+        }
+        return idealStates;
+    }
     public Board(int[][] currentState) {
         this.currentState = currentState;
         for(int i = 0; i< currentState.length; i++){
