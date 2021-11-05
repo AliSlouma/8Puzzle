@@ -19,6 +19,6 @@ public class Main {
 
         Search search = new Search();
         System.out.println(search.BFS(board));
-        new AStarSearch(new EuclideanDistanceHeuristic()).search(board);
+        search.AStarSearch(board,new EuclideanDistanceHeuristic(),true);
     }
 }
