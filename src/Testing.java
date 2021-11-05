@@ -19,8 +19,7 @@ public class Testing {
         //A* Search
         long startAstar = System.currentTimeMillis();
         Search search = new Search();
-        System.out.println(search.BFS(board));
-        search.AStarSearch(board,new EuclideanDistanceHeuristic(),true);
+        search.AStarSearch(board,new EuclideanDistanceHeuristic(),false);
         long endAstar = System.currentTimeMillis();
         long elapsedTimeAstar = endAstar - startAstar;
         System.out.println("Elapsed Time: "+ elapsedTimeAstar + " ms");

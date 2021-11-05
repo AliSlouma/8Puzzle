@@ -1,6 +1,9 @@
 import java.awt.*;
 import java.util.Map;
-
+// provided Board as its parameter,
+// Calculates Euclidean Distance for all items,
+// with respect to its ideal positions stored as a static map in Board Class,
+// and returns sum of all distances to be used as a heuristic in A* search
 public class ManhattanDistanceHeuristic implements Heuristics{
     public double calculateHeuristic (int [][] obj1){
         if(obj1==null)return -1 ;

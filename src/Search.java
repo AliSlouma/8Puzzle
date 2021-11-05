@@ -71,11 +71,13 @@ public class Search {
     }
     public boolean AStarSearch(Board initialState, Heuristics heuristic, boolean printFlag) {
         int step = 0;
+        //  priority queue to store expanded nodes with its actual cost and total heuristic cost
+        // <<F(X),G(X)>, Board>
         PriorityQueue<Map.Entry<Map.Entry<Double, Integer>, Board>> pq = new PriorityQueue<>(new BoardComparator());
-        Set<Board> visited = new HashSet<>();
-        Set<Board> found = new HashSet<>();
+        Set<Board> visited = new HashSet<>(); // set carries visited nodes
+        Set<Board> found = new HashSet<>(); // set carries expanded nodes
         double initialHeuristic = heuristic.calculateHeuristic(initialState.getCurrentState());
-        pq.add(new AbstractMap.SimpleEntry<>(new AbstractMap.SimpleEntry<>(initialHeuristic, 0), initialState));
+        pq.add(new AbstractMap.SimpleEntry<>(new AbstractMap.SimpleEntry<>(initialHeuristic, 0), initialState)); // add initial state to the priority queue
         found.add(initialState);
         while (!pq.isEmpty()) {
             Map.Entry<Map.Entry<Double, Integer>, Board> curr = pq.poll();
@@ -84,14 +86,14 @@ public class Search {
             List<Board> neighbours = currBoard.getNeighbours();
             double currHeuristic = heuristic.calculateHeuristic(currBoard.getCurrentState());
 
-            if (visited.contains(currBoard)) continue;
+            if (visited.contains(currBoard)) continue; //if this board was visited with lower cost then skip it
 
             if (printFlag) {
                 System.out.println("\nstep : " + step);
                 currBoard.drawBoard();
                 System.out.println("h(state) = " + currHeuristic + ", g(state) = " + currCost.getValue() + ", f(state) = " + currCost.getKey());
             }
-            if (Search.goalTest(currBoard)) {
+            if (Search.goalTest(currBoard)) { // if the current state is the goal state then print the results and end the search
                 getPathToGoal(currBoard);
                 if (printFlag) {
                     System.out.println("\nfound solution in " + step + " steps");
@@ -104,10 +106,10 @@ public class Search {
 
             if (!neighbours.isEmpty() && printFlag)
                 System.out.println("\npossible neighbours : ");
-            for (Board nextBoard : neighbours) {
+            for (Board nextBoard : neighbours) { //get all neighbours of current state and them to the priority queue
                 found.add(nextBoard);
-                double nextHeuristic = heuristic.calculateHeuristic(nextBoard.getCurrentState());
-                int nextCost = currCost.getValue() + 1;
+                double nextHeuristic = heuristic.calculateHeuristic(nextBoard.getCurrentState()); //H(X)
+                int nextCost = currCost.getValue() + 1; // G(X)
                 pq.add(new AbstractMap.SimpleEntry<>(new AbstractMap.SimpleEntry<>(nextHeuristic + nextCost, nextCost), nextBoard));
 
                 if (printFlag) {
@@ -117,6 +119,7 @@ public class Search {
             }
             step++;
         }
+        // if priority queue is empty and no solution found
         System.out.println("didn't find solution in " + step + " steps");
         System.out.println("nodes expanded = " + found.size());
         return false;
