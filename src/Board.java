@@ -36,24 +36,21 @@ public class Board {
         List<Board> neighbours = new ArrayList<>();
         // swap zero with each of its available neighbours to get a new state
         int zeroX = zeroIndecis[0], zeroY = zeroIndecis[1];
-        if(zeroX>0){
-            int tempValue = currentState[zeroX-1][zeroY];
-            neighbours.add(generateNewState(tempValue, zeroX-1, zeroY));
-        }
-        if(zeroX<2){
-            int tempValue = currentState[zeroX+1][zeroY];
-            neighbours.add(generateNewState(tempValue, zeroX+1, zeroY));
+        if(zeroY<2){
+            int tempValue = currentState[zeroX][zeroY+1];
+            neighbours.add(generateNewState(tempValue, zeroX, zeroY+1));
         }
         if(zeroY>0){
             int tempValue = currentState[zeroX][zeroY-1];
             neighbours.add(generateNewState(tempValue, zeroX, zeroY-1));
         }
-        if(zeroY<2){
-            int tempValue = currentState[zeroX][zeroY+1];
-            neighbours.add(generateNewState(tempValue, zeroX, zeroY+1));
+        if(zeroX<2){
+            int tempValue = currentState[zeroX+1][zeroY];
+            neighbours.add(generateNewState(tempValue, zeroX+1, zeroY));
         }
-        for(Board neighbour: neighbours){
-            neighbour.drawBoard();
+        if(zeroX>0){
+            int tempValue = currentState[zeroX-1][zeroY];
+            neighbours.add(generateNewState(tempValue, zeroX-1, zeroY));
         }
         return neighbours;
     }

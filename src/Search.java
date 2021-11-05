@@ -12,18 +12,18 @@ public class Search {
         frontier.push(initialState);
         while (!frontier.isEmpty()){
             Board state = frontier.pop();
-            state.drawBoard();
             explored.add(state);
+//            System.out.println(explored.size());
+            state.drawBoard();
 
             if(goalTest(state)){
                 return true;
             }
 
             for(Board neighbour: state.getNeighbours()) {
-                if(!frontier.contains(neighbour)||!explored.contains(neighbour))
+                if(!frontier.contains(neighbour) && !explored.contains(neighbour))
                     frontier.push(neighbour);
             }
-            return false;
         }
         return false;
     }
