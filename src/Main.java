@@ -14,6 +14,11 @@ public class Main {
         System.out.println(set.contains(board1));
         System.out.println(set.contains(board2));
         board1.drawBoard();
-        new ManhattanDistanceHeuristic().calculateHeuristic(new int[3][3]);
+        int[][] arr = {{1,2,5},{3,4,0},{6,7,8}};
+        Board board = new Board(arr);
+
+        Search search = new Search();
+        System.out.println(search.BFS(board));
+        new AStarSearch()
     }
 }

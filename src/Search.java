@@ -4,8 +4,8 @@ import java.util.Stack;
 
 public class Search {
 
-    int [][] goalMat = new int[][]{{0,1,2},{3,4,5},{6,7,8}};
-    Board goal = new Board(goalMat);
+    private static int [][] goalMat = new int[][]{{0,1,2},{3,4,5},{6,7,8}};
+    private static Board goal = new Board(goalMat);
     public boolean depthFirstSearch(Board initialState){
         Stack<Board> frontier = new Stack<>();
         Set<Board> explored = new HashSet<>();
@@ -27,7 +27,7 @@ public class Search {
         }
         return false;
     }
-    public Boolean goalTest(Board state){
+    public static Boolean goalTest(Board state){
         return state.equals(goal);
     }
 }

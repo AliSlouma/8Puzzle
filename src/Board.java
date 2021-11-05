@@ -32,6 +32,10 @@ public class Board {
         return currentState;
     }
 
+    public int[] getZeroPoint() {
+        return zeroIndecis;
+    }
+
     public List<Board> getNeighbours() {
         List<Board> neighbours = new ArrayList<>();
         // swap zero with each of its available neighbours to get a new state
