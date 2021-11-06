@@ -23,6 +23,7 @@ public class Board {
 
     public Board(int[][] currentState) {
         this.currentState = currentState;
+        depth = 1 ;
         for (int i = 0; i < currentState.length; i++) {
             for (int j = 0; j < currentState[0].length; j++) {
                 if (currentState[i][j] == 0)
