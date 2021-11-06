@@ -4,15 +4,18 @@ public class Search {
 
     private static final int [][] goalMat = new int[][]{{0,1,2},{3,4,5},{6,7,8}};
     private static final Board goal= new Board(goalMat);
+    private int maxDepth ;
     public boolean BFS(Board initialState){
+        maxDepth =0 ;
         Queue<Board> frontier = new LinkedList<>();
         Set<Board> explored = new HashSet<>();
         frontier.add(initialState);
 
         while (!frontier.isEmpty()){
             Board state = frontier.poll();
-            state.drawBoard();
             explored.add(state);
+            maxDepth = Math.max(state.getDepth(),maxDepth);
+            //state.drawBoard();
             if(goalTest(state)){
                 getPathToGoal(state);
                 System.out.println("nodes expanded = " + explored.size());
@@ -42,18 +45,21 @@ public class Search {
             boards.pop().drawBoard();
         }
         System.out.println("Search Depth = " + boardsSize);
+        System.out.println("Maximum Search Depth = " + maxDepth);
         System.out.println("cost of path = " + (boardsSize-1));
     }
 
-    public boolean depthFirstSearch(Board initialState){
+    public boolean DFS(Board initialState){
+        maxDepth =0 ;
         Stack<Board> frontier = new Stack<>();
         Set<Board> explored = new HashSet<>();
         frontier.push(initialState);
         while (!frontier.isEmpty()){
             Board state = frontier.pop();
             explored.add(state);
+            maxDepth = Math.max(state.getDepth(),maxDepth);
 //            System.out.println(explored.size());
-            state.drawBoard();
+            //state.drawBoard();
 
             if(goalTest(state)){
                 getPathToGoal(state);
@@ -69,25 +75,25 @@ public class Search {
         System.out.println("nodes expanded = " + explored.size());
         return false;
     }
-    public boolean AStarSearch(Board initialState, Heuristics heuristic, boolean printFlag) {
+    public boolean AStar(Board initialState, Heuristics heuristic, boolean printFlag) {
+        maxDepth =0 ;
         int step = 0;
         //  priority queue to store expanded nodes with its actual cost and total heuristic cost
         // <<F(X),G(X)>, Board>
-        PriorityQueue<Map.Entry<Map.Entry<Double, Integer>, Board>> pq = new PriorityQueue<>(new BoardComparator());
-        Set<Board> visited = new HashSet<>(); // set carries visited nodes
+        PriorityQueue<Map.Entry<Map.Entry<Double, Integer>, Board>> frontier = new PriorityQueue<>(new BoardComparator());
+        Set<Board> explored = new HashSet<>(); // set carries explored nodes
         Set<Board> found = new HashSet<>(); // set carries expanded nodes
         double initialHeuristic = heuristic.calculateHeuristic(initialState.getCurrentState());
-        pq.add(new AbstractMap.SimpleEntry<>(new AbstractMap.SimpleEntry<>(initialHeuristic, 0), initialState)); // add initial state to the priority queue
+        frontier.add(new AbstractMap.SimpleEntry<>(new AbstractMap.SimpleEntry<>(initialHeuristic, 0), initialState)); // add initial state to the priority queue
         found.add(initialState);
-        while (!pq.isEmpty()) {
-            Map.Entry<Map.Entry<Double, Integer>, Board> curr = pq.poll();
+        while (!frontier.isEmpty()) {
+            Map.Entry<Map.Entry<Double, Integer>, Board> curr = frontier.poll();
             Map.Entry<Double, Integer> currCost = curr.getKey();
             Board currBoard = curr.getValue();
-            List<Board> neighbours = currBoard.getNeighbours();
             double currHeuristic = heuristic.calculateHeuristic(currBoard.getCurrentState());
 
-            if (visited.contains(currBoard)) continue; //if this board was visited with lower cost then skip it
-
+            if (explored.contains(currBoard)) continue; //if this board was explored with lower cost then skip it
+            maxDepth = Math.max(currBoard.getDepth(),maxDepth);
             if (printFlag) {
                 System.out.println("\nstep : " + step);
                 currBoard.drawBoard();
@@ -102,16 +108,20 @@ public class Search {
                 System.out.println("nodes expanded = " + found.size());
                 return true;
             }
-            visited.add(currBoard);
+            // set this node as visited
+            explored.add(currBoard);
 
+            // get neighbours of current state
+            List<Board> neighbours = currBoard.getNeighbours();
             if (!neighbours.isEmpty() && printFlag)
                 System.out.println("\npossible neighbours : ");
+
+            // set this node as expanded but not visited yet
+            found.addAll(neighbours);
             for (Board nextBoard : neighbours) { //get all neighbours of current state and them to the priority queue
-                found.add(nextBoard);
                 double nextHeuristic = heuristic.calculateHeuristic(nextBoard.getCurrentState()); //H(X)
                 int nextCost = currCost.getValue() + 1; // G(X)
-                pq.add(new AbstractMap.SimpleEntry<>(new AbstractMap.SimpleEntry<>(nextHeuristic + nextCost, nextCost), nextBoard));
-
+                frontier.add(new AbstractMap.SimpleEntry<>(new AbstractMap.SimpleEntry<>(nextHeuristic + nextCost, nextCost), nextBoard));
                 if (printFlag) {
                     nextBoard.drawBoard();
                     System.out.println("h(state) = " + nextHeuristic + ", g(state) = " + nextCost + ", f(state) = " + (nextHeuristic + nextCost));
